@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        width: 600px;
+        height: 600px;
+        position: relative;
+        box-sizing: border-box;
+
+
+    }
+
+    .circle {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #aaa;
+        transform-origin: 0 150px;
+        animation: spin 3s infinite linear
+    }
+
+    .portrait {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -75px;
+        margin-top: -75px;
+        background: #000;
+        border-radius: 50%;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="portrait"></div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    <script>
+        var list = []
+
+        for (var i = 0; i < 10; i++) {
+
+            var item = {
+                left: Number((Math.random() * 100).toFixed(2)),
+                top: Number((Math.random() * 100).toFixed(2))
+            }
+            list.push(item)
+        }
+
+        var portrait = document.getElementsByClassName('portrait')[0],
+            portraitLeft = portrait.getBoundingClientRect().left,
+            portraitTop = portrait.getBoundingClientRect().top,
+            portraitCenter = {
+                left: portraitLeft + 50 / 2,
+                top: portraitTop + 50 / 2
+            }
+
+
+
+        list.map(item => {
+            var xdis = Math.abs(portraitCenter.left - item.left)
+            var ydis = Math.abs(portraitCenter.top - item.top)
+            var time = Number((Math.random() * 10).toFixed(2)) + 's'
+            console.log(time)
+            setTimeout(() => {
+                $(".container").append(
+                    `<div class="circle" style="left:${item.left}px;top:${item.top}px;transform-origin:${xdis}px ${ydis}px;animation:spin ${time} infinite linear ;"></div>`
+                )
+            }, 500);
+            
+
+        })
+
+        
+
+    </script>
+</body>
+
+</html>
